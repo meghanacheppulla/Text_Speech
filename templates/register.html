@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Create account — Ask the Frame{% endblock %}
+
+{% block content %}
+  <main class="wrap auth-wrap">
+    <section class="panel auth-panel">
+      <span class="mark">Get started</span>
+      <h1 class="auth-title">Create your account</h1>
+      <p class="auth-sub">Register to start asking questions about your images.</p>
+
+      <form method="POST" action="{{ url_for('auth.register') }}" class="auth-form">
+        <label class="field-label" for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value="{{ username or '' }}"
+          autocomplete="username"
+          minlength="3"
+          required
+        />
+
+        <label class="field-label" for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value="{{ email or '' }}"
+          autocomplete="email"
+          required
+        />
+
+        <label class="field-label" for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          autocomplete="new-password"
+          minlength="8"
+          required
+        />
+
+        <label class="field-label" for="confirm_password">Confirm password</label>
+        <input
+          type="password"
+          id="confirm_password"
+          name="confirm_password"
+          autocomplete="new-password"
+          minlength="8"
+          required
+        />
+
+        <button type="submit">Create account</button>
+      </form>
+
+      <p class="auth-footer">
+        Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a>
+      </p>
+    </section>
+  </main>
+{% endblock %}

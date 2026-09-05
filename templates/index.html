@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Ask the Frame{% endblock %}
+
+{% block content %}
+
+  <header class="site-header">
+    <div class="wrap">
+      <span class="mark">01</span>
+      <h1>Ask the Frame</h1>
+      <p class="tagline">Show it a picture. Ask it anything. Listen to the answer.</p>
+    </div>
+  </header>
+
+  <main class="wrap layout">
+
+    <!-- LEFT: image + question -->
+    <section class="panel intake">
+      <form id="ask-form">
+        <label class="drop-zone" id="drop-zone" for="image-input">
+          <img id="preview-img" class="preview-img hidden" alt="Uploaded preview" />
+          <span id="drop-label" class="drop-label">
+            <strong>Place an image here</strong>
+            <span>or click to browse — PNG, JPG, WEBP</span>
+          </span>
+        </label>
+        <input type="file" id="image-input" name="image" accept=".png,.jpg,.jpeg,.webp" hidden />
+
+        <label class="field-label" for="question-input">Your question</label>
+        <input
+          type="text"
+          id="question-input"
+          name="question"
+          placeholder="What's happening in this photo?"
+          autocomplete="off"
+        />
+
+        <button type="submit" id="submit-btn">Ask</button>
+        <p id="form-error" class="form-error hidden"></p>
+      </form>
+    </section>
+
+    <!-- RIGHT: answer, styled like a museum audio-guide placard -->
+    <section class="panel answer" id="answer-panel">
+      <div class="placard-number">GUIDE 001</div>
+
+      <div id="idle-state" class="idle-state">
+        <p>Upload an image and ask a question — your answer will appear here, both written and spoken aloud.</p>
+      </div>
+
+      <div id="loading-state" class="loading-state hidden">
+        <div class="pulse-dot"></div>
+        <p id="loading-text">Looking closely…</p>
+      </div>
+
+      <div id="result-state" class="result-state hidden">
+        <p class="asked-question" id="asked-question"></p>
+        <p class="answer-text" id="answer-text"></p>
+
+        <div class="audio-row">
+          <button type="button" id="play-btn" class="play-btn" aria-label="Play answer">
+            <svg id="play-icon" viewBox="0 0 24 24" width="18" height="18"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+            <svg id="pause-icon" viewBox="0 0 24 24" width="18" height="18" class="hidden"><path d="M6 5h4v14H6zM14 5h4v14h-4z" fill="currentColor"/></svg>
+          </button>
+          <div class="waveform" id="waveform" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+        <audio id="answer-audio"></audio>
+      </div>
+    </section>
+
+  </main>
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}

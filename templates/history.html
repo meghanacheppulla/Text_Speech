@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}History — Ask the Frame{% endblock %}
+
+{% block content %}
+  <header class="site-header">
+    <div class="wrap">
+      <span class="mark">02</span>
+      <h1>Your history</h1>
+      <p class="tagline">The last {{ entries|length }} question{{ 's' if entries|length != 1 else '' }} you've asked.</p>
+    </div>
+  </header>
+
+  <main class="wrap history-wrap">
+    {% if entries %}
+      <div class="history-list">
+        {% for entry in entries %}
+          <article class="history-card">
+            <img src="{{ entry.image_path }}" alt="" class="history-thumb" />
+            <div class="history-body">
+              <p class="asked-question">“{{ entry.question }}”</p>
+              <p class="answer-text history-answer">{{ entry.answer }}</p>
+              <div class="audio-row">
+                <audio controls src="{{ entry.audio_path }}"></audio>
+                <span class="history-date">{{ entry.created_at.strftime('%b %d, %Y · %H:%M') }}</span>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="empty-history">
+        Nothing here yet. <a href="{{ url_for('index') }}">Ask your first question</a> to start building your history.
+      </p>
+    {% endif %}
+  </main>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Log in — Ask the Frame{% endblock %}
+
+{% block content %}
+  <main class="wrap auth-wrap">
+    <section class="panel auth-panel">
+      <span class="mark">Welcome back</span>
+      <h1 class="auth-title">Log in</h1>
+      <p class="auth-sub">Pick up where you left off — your image history is waiting.</p>
+
+      <form method="POST" action="{{ url_for('auth.login') }}" class="auth-form">
+        <label class="field-label" for="identifier">Username or email</label>
+        <input
+          type="text"
+          id="identifier"
+          name="identifier"
+          value="{{ identifier or '' }}"
+          autocomplete="username"
+          required
+        />
+
+        <label class="field-label" for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required />
+
+        <button type="submit">Log in</button>
+      </form>
+
+      <p class="auth-footer">
+        New here? <a href="{{ url_for('auth.register') }}">Create an account</a>
+      </p>
+    </section>
+  </main>
+{% endblock %}
